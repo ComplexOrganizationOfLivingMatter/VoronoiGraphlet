@@ -323,12 +323,12 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
         if isempty(strfind(currentPath, 'Voronoi1')) == 0
             xlabel('Graphlet degree distance random voronoi (GDDRV)', 'FontWeight', 'bold');
             saveas(h1, strcat('GDDRV_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
-            export_fig(h1, strcat('GDDRV_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-pdf', '-r300', '-opengl');
+            print(h1, strcat('GDDRV_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-dbmp', '-r300', '-painters');
         else
             xlabel('Graphlet degree distance-hexagons (GDDH)', 'FontWeight', 'bold');
             saveas(h1, strcat('GDDH_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
             %set(findall(0,'Type','Line'), 'MarkerSize', 20)
-            export_fig(h1, strcat('GDDH_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-pdf', '-r300', '-opengl');
+            print(h1, strcat('GDDH_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-dbmp', '-r300', '-painters');
         end
     end
 end
