@@ -1,7 +1,7 @@
 function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( currentPath, kindOfGraphics )
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
-    set(0,'DefaultAxesFontName', 'Helvetica-Narrow')
+    set(0,'DefaultAxesFontName', 'Helvetica-Narrow', 'DefaultAxesFontSize', 13, 'DefaultLineMarkerSize', 13)
     clearvars -except currentPath kindOfGraphics
     unifyDistances(currentPath);
     
@@ -296,7 +296,7 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
         end
     end
     
-    newNames = {'BCA', 'Eye', 'cNT', 'dWL', 'dWP', 'Voronoi', 'Voronoi weighted - Cancer cells', 'Voronoi Noise', 'Case II', 'Case III', 'Case IV', 'dMWP', 'Atrophy', 'Control Proliferative', 'Control No Proliferative', 'BNA', 'Voronoi weighted - Neighbours of cancer cells'};
+    newNames = {'BCA', 'Eye', 'cNT', 'dWL', 'dWP', 'CVT', 'Voronoi weighted - Cancer cells', 'CVTn', 'Case II', 'Case III', 'Case IV', 'dMWP', 'Atrophy', 'Control Proliferative', 'Control No Proliferative', 'BNA', 'Voronoi weighted - Neighbours of cancer cells'};
     
     
     auxLim = xlim;
@@ -315,7 +315,7 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
     else
         ylim([0 100])
         
-        legend(h(h(:, 1) > 0, 1), newNames(h(:, 1) > 0)', 'Location', 'best');
+        legend(h(h(:, 1) > 0, 1), newNames(h(:, 1) > 0)', 'Location', 'best', 'EdgeColor', [1 1 1]);
         
         ylabel('Percentage of hexagons', 'FontWeight', 'bold');
         
