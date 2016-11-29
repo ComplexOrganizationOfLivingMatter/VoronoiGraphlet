@@ -54,8 +54,8 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
         
         %%%%% Not really used! CARE!!!!!!
         load(strcat('results\comparisons\Total\maxLength5WithoutJumps\AgainstHexagons\', 'allDifferences.mat'))
-        differenceWithRegularHexagon = vertcat(differenceWithRegularHexagon', differenceWithRegularHexagonToAppend);
-        names = {namesFinal{:}, namesToAppend{:}};
+        differenceWithRegularHexagon = vertcat(differenceWithRegularHexagon(notWanted == 0)', differenceWithRegularHexagonToAppend);
+        names = {namesFinal{notWanted == 0}, namesToAppend{:}};
         %%%%% END CARE!!!!
         
         names = cellfun(@(x) strsplit(x, '/'), names, 'UniformOutput', false);
@@ -72,8 +72,9 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
         
         %%%%% Not really used! CARE!!!!!!
         load(strcat('results\comparisons\Total\maxLength5WithoutJumps\AgainstHexagons\', 'allDifferences.mat'))
-        differenceWithRegularHexagon = vertcat(differenceWithRegularHexagon', differenceWithRegularHexagonToAppend);
-        names = {namesFinal{:}, namesToAppend{:}};
+        notWanted = cellfun(@(x) isempty(strfind(x, 'imagen')) == 0 & isempty(strfind(x, '001')) == 0 & isempty(strfind(x, 'totalGraphlets')), namesFinal);
+        differenceWithRegularHexagon = vertcat(differenceWithRegularHexagon(notWanted == 0)', differenceWithRegularHexagonToAppend);
+        names = {namesFinal{notWanted == 0}, namesToAppend{:}};
         %%%%% END CARE!!!!
         
         if isempty(strfind(currentPath, 'maxLength5'))
