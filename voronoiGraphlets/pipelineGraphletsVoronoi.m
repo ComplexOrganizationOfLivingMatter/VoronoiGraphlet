@@ -7,7 +7,7 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
 %
 %   Developed by Pablo Vicente-Munuera
     clearvars -except typeOfData
-    cd E:\Pablo\PhD-miscelanious\voronoiGraphlets\
+    cd E:\Pablo\VoronoiGraphlets\voronoiGraphlets\
 
     dataDir = strcat('data\', typeOfData);
     %Firstly, we calculate neighbours and valid cells
