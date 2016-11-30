@@ -74,4 +74,5 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
     end
     
     getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '', 'maxLength5');
+    getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '', 'maxLength4');
 end
