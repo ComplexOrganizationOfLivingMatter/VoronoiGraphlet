@@ -26,67 +26,79 @@ function [ finalValidCells ] = getValidCellsFromROI(currentPath, maxPathLength, 
             outputFile = strcat(outputPath, 'maxLength', num2str(maxPathLength), '\', 'maxLength', num2str(maxPathLength) ,'_', diagramName);
         end
         %Check which files we want.
-        if isempty(strfind(lower(diagramName), '_data.mat')) == 0 && exist(outputFile, 'file') ~= 2 && isempty(strfind(lower(strjoin(diagramNameSplitted, '\')), 'columns'))
-            fullPathFile
-            clear vecinos Vecinos celulas_validas
-            load(fullPathFile);%load valid cells and neighbours
-            
-            if exist('vecinos', 'var') == 1
-                neighbours = vecinos;
-                clear vecinos
-            elseif exist('Vecinos', 'var') == 1
-                neighbours = Vecinos;
-                clear Vecinos
-            else
-                error('No neighbours variable');
-            end
-            validCells = celulas_validas;
-            clear celulas_validas
-            neighboursEmpty = cellfun(@(x) isempty(x), neighbours);
-            maxCellLabel = max(cellfun(@(x) max(x), neighbours(neighboursEmpty == 0)));
-            noValidCells = setxor(1:maxCellLabel, validCells);
+        if isempty(strfind(lower(diagramName), '.mat')) == 0 && exist(outputFile, 'file') ~= 2 && isempty(strfind(lower(strjoin(diagramNameSplitted, '\')), 'columns'))
+            if isempty(strfind(lower(diagramName), '_data.mat')) == 0 
+                fullPathFile
+                clear vecinos Vecinos celulas_validas
+                load(fullPathFile);%load valid cells and neighbours
 
-            if size(neighbours, 2) ~= (size(noValidCells, 2) + size(validCells, 2))
-                error('Incorrect number of no valid cells'); 
-            end
-
-            finalValidCells = [];
-            weightedCellsAndNeigbhours = union(vertcat(neighbours{wts > 0}), find(wts > 0));
-            for numCell = 1:size(neighbours, 2)
-                neighboursInMaxPathLength = [];
-                antNeighbours = [neighbours{numCell}];
-                noValidCellsInPath = intersect(noValidCells, antNeighbours);
-                neighboursInMaxPathLength = unique(horzcat(neighboursInMaxPathLength, antNeighbours'));
-
-                if isempty(noValidCellsInPath) == 0
-                    continue %it is a no valid cell
+                if exist('vecinos', 'var') == 1
+                    neighbours = vecinos;
+                    clear vecinos
+                elseif exist('Vecinos', 'var') == 1
+                    neighbours = Vecinos;
+                    clear Vecinos
+                else
+                    error('No neighbours variable');
                 end
-                pathLengthActual = 3;
-                while pathLengthActual <= maxPathLength
-                    actualNeighbours = vertcat(neighbours{antNeighbours});
-                    neighboursInMaxPathLength = unique(horzcat(neighboursInMaxPathLength, actualNeighbours'));
-                    antNeighbours = actualNeighbours;
-                    pathLengthActual = pathLengthActual + 1;
+                validCells = celulas_validas;
+                clear celulas_validas
+                neighboursEmpty = cellfun(@(x) isempty(x), neighbours);
+                maxCellLabel = max(cellfun(@(x) max(x), neighbours(neighboursEmpty == 0)));
+                noValidCells = setxor(1:maxCellLabel, validCells);
+
+                if size(neighbours, 2) ~= (size(noValidCells, 2) + size(validCells, 2))
+                    error('Incorrect number of no valid cells'); 
                 end
 
-                noValidCellsInPath = intersect(noValidCells, neighboursInMaxPathLength);
-                
-                if isempty(noValidCellsInPath)
-                    %Only wants the cells that intervine (i.e. the weighted cells and their neighbours)
-                    if isempty(strfind(fullPathFile, 'Weighted')) == 0 
-                        if sum(ismember(neighboursInMaxPathLength, weightedCellsAndNeigbhours)) > 0
+                finalValidCells = [];
+                weightedCellsAndNeigbhours = union(vertcat(neighbours{wts > 0}), find(wts > 0));
+                for numCell = 1:size(neighbours, 2)
+                    neighboursInMaxPathLength = [];
+                    antNeighbours = [neighbours{numCell}];
+                    noValidCellsInPath = intersect(noValidCells, antNeighbours);
+                    neighboursInMaxPathLength = unique(horzcat(neighboursInMaxPathLength, antNeighbours'));
+
+                    if isempty(noValidCellsInPath) == 0
+                        continue %it is a no valid cell
+                    end
+                    pathLengthActual = 3;
+                    while pathLengthActual <= maxPathLength
+                        actualNeighbours = vertcat(neighbours{antNeighbours});
+                        neighboursInMaxPathLength = unique(horzcat(neighboursInMaxPathLength, actualNeighbours'));
+                        antNeighbours = actualNeighbours;
+                        pathLengthActual = pathLengthActual + 1;
+                    end
+
+                    noValidCellsInPath = intersect(noValidCells, neighboursInMaxPathLength);
+
+                    if isempty(noValidCellsInPath)
+                        %Only wants the cells that intervine (i.e. the weighted cells and their neighbours)
+                        if isempty(strfind(fullPathFile, 'Weighted')) == 0 
+                            if sum(ismember(neighboursInMaxPathLength, weightedCellsAndNeigbhours)) > 0
+                                finalValidCells(end+1) = numCell;
+                            end
+                        else
                             finalValidCells(end+1) = numCell;
                         end
-                    else
-                        finalValidCells(end+1) = numCell;
                     end
                 end
+
+                vecinos = neighbours;
+                celulas_validas = validCells;
+                save(outputFile, 'finalValidCells', 'celulas_validas', 'vecinos');
+                clear vecinos celulas_validas
+            elseif isempty(strfind(lower(diagramName), 'neo')) == 0 %NEO files
+                load(fullPathFile);
+                if maxPathLength == 4
+                    finalValidCells = valid_cells_4;
+                elseif maxPathLength == 5
+                    finalValidCells = valid_cells_5;
+                end
+                celulas_validas = valid_cells;
+                vecinos = neighs_real;
+                save(outputFile, 'finalValidCells', 'celulas_validas', 'vecinos');
             end
-            
-            vecinos = neighbours;
-            celulas_validas = validCells;
-            save(outputFile, 'finalValidCells', 'celulas_validas', 'vecinos');
-            clear vecinos celulas_validas
         end
     end
 end
