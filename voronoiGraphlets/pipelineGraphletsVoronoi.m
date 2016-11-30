@@ -7,7 +7,8 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
 %
 %   Developed by Pablo Vicente-Munuera
     clearvars -except typeOfData
-    cd E:\Pablo\VoronoiGraphlets\voronoiGraphlets\
+    cd E:\Pablo\VoronoiGraphlet\voronoiGraphlets\
+    addpath(genpath('E:\Pablo\VoronoiGraphlets\voronoiGraphlets\src\'))
 
     dataDir = strcat('data\', typeOfData);
     %Firstly, we calculate neighbours and valid cells
@@ -15,11 +16,8 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
     disp('Calculating neighbours and valid cells');
     Calculate_neighbors_polygon_distribution(dataDir);
     validCellsDir = strcat('results\validCellsMaxPathLength\', typeOfData);
-    if exist(validCellsDir, 'dir') ~= 7
-        mkdir(validCellsDir);
-        mkdir(validCellsDir, 'maxLength4');
-        mkdir(validCellsDir, 'maxLength5');
-    end
+    mkdir(validCellsDir, 'maxLength4');
+    mkdir(validCellsDir, 'maxLength5');
     %ValidCells of max path length 4 and 5.
     disp('Valid cells from ROI');
     getValidCellsFromROI(dataDir, 4, validCellsDir);
@@ -59,8 +57,8 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', [9, 13:73], 'maxLength4Only11Without8');
    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', 13:73, 'maxLength4Only11');
    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', [], 'maxLength5');
-%     filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'validCells', [], '');
-%     filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'validCells', [], '');
+   filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'validCells', [], '');
+   filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'validCells', [], '');
 
     %Individual cells
     graphletResultsIndividual = strcat('results\graphletResultsIndividual\', typeOfData);
@@ -69,25 +67,11 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
     
     distanceDir = strcat('results\distanceMatrix\', typeOfData);
     if exist(distanceDir, 'dir') ~= 7
-        mkdir(distanceDir);
-        mkdir(distanceDir, 'maxLength4\EveryFile');
-        mkdir(distanceDir, 'maxLength5\EveryFile');
+        mkdir(distanceDir, 'maxLength4Only11');
+        mkdir(distanceDir, 'maxLength4Only11Without8');
+        mkdir(distanceDir, 'maxLength5');
+        mkdir(distanceDir, 'maxLength5WithoutJumps');
     end
     
-    %getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '', 'maxLength5');
-%     answer = 'n';
-%     while lower(answer) ~= 'y'
-%         answer = input('Are distances calculated? [y/n] ');
-%     end
-%     
-%     %Calculate distance
-%     analyzeGraphletDistances(strcat(distanceDir, 'maxLength4\EveryFile\'), 'gdda');
-%     analyzeGraphletDistances(strcat(distanceDir, 'maxLength5\EveryFile\'), 'gdda');
-% %     analyzeGraphletDistances(strcat(distanceDir, 'maxLength4\'), 'gcd11');
-% %     analyzeGraphletDistances(strcat(distanceDir, 'maxLength5\'), 'gcd11');
-% %     analyzeGraphletDistances(strcat(distanceDir, 'maxLength5\'), 'gcd73');
-%     
-%     unifyDistances();
-%     getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '');
-%     comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons();
+    getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '', 'maxLength5');
 end
