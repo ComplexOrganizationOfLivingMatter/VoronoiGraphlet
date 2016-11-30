@@ -19,3 +19,4 @@ voronoiGraphlets/src/lib/export_fig-master/*
 *.ndump2
 *.gw
 *.png
+*.bmp
