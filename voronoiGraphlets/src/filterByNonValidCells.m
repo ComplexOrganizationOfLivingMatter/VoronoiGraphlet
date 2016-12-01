@@ -68,7 +68,7 @@ function [ ] = filterByNonValidCells( currentPath, neighboursPath, kindOfValidCe
 
                 if size(matrixToFilter(neighboursValidCells), 1) > 6
                     if exist(outputFileCancerNeighbours, 'file') ~= 2
-                        dlmwrite(outputFileCancerNeighbours, matrixToFilter(neighboursValidCells), ' ');
+                        dlmwrite(outputFileCancerNeighbours, matrixToFilter(neighboursValidCells, :), ' ');
                     end
                 else
                     fullpathImage
