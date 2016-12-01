@@ -74,8 +74,7 @@ function [ ] = filterByNonValidCells( currentPath, neighboursPath, kindOfValidCe
                     fullpathImage
                     disp('Not enough nodes');
                 end
-            end
-            if exist(outputFile, 'file') ~= 2
+            elseif exist(outputFile, 'file') ~= 2
                 if isequal(kindOfValidCells, 'finalValidCells') == 0
                     if isempty(strfind(outputFile, 'weight')) == 0
                         outputFileSplitted = strsplit(outputFile, '\');
