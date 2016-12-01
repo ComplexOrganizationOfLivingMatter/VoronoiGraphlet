@@ -40,25 +40,45 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
     end
     
     %Now, we have to wait until .ndump2 are created
-    answer = 'n';
-    while answer ~= 'y'
-        answer = input('Are .ndump2 created? [y/n] ');
-    end
+%     answer = 'n';
+%     while answer ~= 'y'
+%         answer = input('Are .ndump2 created? [y/n] ');
+%     end
     %After that, 
     graphletResultsFilteredDir = strcat('results\graphletResultsFiltered\', typeOfData);
     mkdir(graphletResultsFilteredDir);
-    %mkdir(graphletResultsFilteredDir, 'maxLength4');
-    mkdir(graphletResultsFilteredDir, 'maxLength5');
+    if isempty(strfind(typeOfData, 'Weighted'))
+        mkdir(graphletResultsFilteredDir, 'Basica');
+        mkdir(graphletResultsFilteredDir, 'BasicaParcial');
+        mkdir(graphletResultsFilteredDir, 'Total');
+        mkdir(graphletResultsFilteredDir, 'TotalParcial');
+    else
+        mkdir(graphletResultsFilteredDir, 'Basica\NeighboursOfCancerCells');
+        mkdir(graphletResultsFilteredDir, 'Basica\CancerCells');
+        mkdir(graphletResultsFilteredDir, 'BasicaParcial\NeighboursOfCancerCells');
+        mkdir(graphletResultsFilteredDir, 'BasicaParcial\CancerCells');
+        mkdir(graphletResultsFilteredDir, 'Total\NeighboursOfCancerCells');
+        mkdir(graphletResultsFilteredDir, 'Total\CancerCells');
+        mkdir(graphletResultsFilteredDir, 'TotalParcial\NeighboursOfCancerCells');
+        mkdir(graphletResultsFilteredDir, 'TotalParcial\CancerCells');
+    end
+    
     
 %     for i = 12:73
 %         filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', i, strcat('WithGraphlet', num2str(i)));
 %     end
-   filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', [9, 15, 23, 24, 36, 37, 38, 39, 52, 53, 54, 55, 56, 57, 58, 59, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73], 'maxLength5WithoutJumps');
-   filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', [9, 13:73], 'maxLength4Only11Without8');
-   filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', 13:73, 'maxLength4Only11');
-   filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', [], 'maxLength5');
-   filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'validCells', [], '');
-   filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'validCells', [], '');
+    %Basica
+    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', 16:73, 'Basica');
+    %BasicaParcial
+    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', [9, 15, 16:73], 'BasicaParcial');
+    %Total
+    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', [50, 51, 63:65, 55, 56, 69, 70], 'Total');
+    %TotalParcial
+    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', [9, 15, 23, 24, 37:39, 50:59, 63:73], 'TotalParcial');
+    
+    %Valid cells
+    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'validCells', [], '');
+    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'validCells', [], '');
 
     %Individual cells
     graphletResultsIndividual = strcat('results\graphletResultsIndividual\', typeOfData);
@@ -66,12 +86,11 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
     getSpecialIndividualCells(graphletResultsDir, graphletResultsIndividual, dataDir);
     
     distanceDir = strcat('results\distanceMatrix\', typeOfData);
-    if exist(distanceDir, 'dir') ~= 7
-        mkdir(distanceDir, 'maxLength4Only11');
-        mkdir(distanceDir, 'maxLength4Only11Without8');
-        mkdir(distanceDir, 'maxLength5');
-        mkdir(distanceDir, 'maxLength5WithoutJumps');
-    end
+
+    mkdir(distanceDir, 'Basica');
+    mkdir(distanceDir, 'BasicaParcial');
+    mkdir(distanceDir, 'Total');
+    mkdir(distanceDir, 'TotalParcial');
     
     getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '', 'maxLength5');
     getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '', 'maxLength4');
