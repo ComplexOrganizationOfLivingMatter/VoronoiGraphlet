@@ -103,22 +103,22 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
     mkdir(comparisonDir, strcat('BasicaParcial\AgainstHexagons\', typeOfData));
     
     if isempty(strfind(typeOfData, 'Weighted')) == 0
-        mkdir(comparisonDir, 'Basica\AgainstHexagons\NeighboursOfCancerCells');
-        mkdir(comparisonDir, 'Basica\AgainstHexagons\CancerCells');
-        mkdir(comparisonDir, 'BasicaParcial\AgainstHexagons\NeighboursOfCancerCells');
-        mkdir(comparisonDir, 'BasicaParcial\AgainstHexagons\CancerCells');
-        mkdir(comparisonDir, 'Total\AgainstHexagons\NeighboursOfCancerCells');
-        mkdir(comparisonDir, 'Total\AgainstHexagons\CancerCells');
-        mkdir(comparisonDir, 'TotalParcial\AgainstHexagons\NeighboursOfCancerCells');
-        mkdir(comparisonDir, 'TotalParcial\AgainstHexagons\CancerCells');
-        mkdir(comparisonDir, 'Basica\AgainstVoronoi1\NeighboursOfCancerCells');
-        mkdir(comparisonDir, 'Basica\AgainstVoronoi1\CancerCells');
-        mkdir(comparisonDir, 'BasicaParcial\AgainstVoronoi1\NeighboursOfCancerCells');
-        mkdir(comparisonDir, 'BasicaParcial\AgainstVoronoi1\CancerCells');
-        mkdir(comparisonDir, 'Total\AgainstVoronoi1\NeighboursOfCancerCells');
-        mkdir(comparisonDir, 'Total\AgainstVoronoi1\CancerCells');
-        mkdir(comparisonDir, 'TotalParcial\AgainstVoronoi1\NeighboursOfCancerCells');
-        mkdir(comparisonDir, 'TotalParcial\AgainstVoronoi1\CancerCells');
+        mkdir(comparisonDir, strcat('Basica\AgainstHexagons\', typeOfData, 'NeighboursOfCancerCells'));
+        mkdir(comparisonDir, strcat('Basica\AgainstHexagons\', typeOfData, 'CancerCells'));
+        mkdir(comparisonDir, strcat('BasicaParcial\AgainstHexagons\', typeOfData, 'NeighboursOfCancerCells'));
+        mkdir(comparisonDir, strcat('BasicaParcial\AgainstHexagons\', typeOfData, 'CancerCells'));
+        mkdir(comparisonDir, strcat('Total\AgainstHexagons\', typeOfData, 'NeighboursOfCancerCells'));
+        mkdir(comparisonDir, strcat('Total\AgainstHexagons\', typeOfData, 'CancerCells'));
+        mkdir(comparisonDir, strcat('TotalParcial\AgainstHexagons\', typeOfData, 'NeighboursOfCancerCells'));
+        mkdir(comparisonDir, strcat('TotalParcial\AgainstHexagons\', typeOfData, 'CancerCells'));
+        mkdir(comparisonDir, strcat('Basica\AgainstVoronoi1\', typeOfData, 'NeighboursOfCancerCells'));
+        mkdir(comparisonDir, strcat('Basica\AgainstVoronoi1\', typeOfData, 'CancerCells'));
+        mkdir(comparisonDir, strcat('BasicaParcial\AgainstVoronoi1\', typeOfData, 'NeighboursOfCancerCells'));
+        mkdir(comparisonDir, strcat('BasicaParcial\AgainstVoronoi1\', typeOfData, 'CancerCells'));
+        mkdir(comparisonDir, strcat('Total\AgainstVoronoi1\', typeOfData, 'NeighboursOfCancerCells'));
+        mkdir(comparisonDir, strcat('Total\AgainstVoronoi1\', typeOfData, 'CancerCells'));
+        mkdir(comparisonDir, strcat('TotalParcial\AgainstVoronoi1\', typeOfData, 'NeighboursOfCancerCells'));
+        mkdir(comparisonDir, strcat('TotalParcial\AgainstVoronoi1\', typeOfData, 'CancerCells'));
     end
     
     getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '', 'maxLength5');
