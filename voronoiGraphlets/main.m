@@ -28,8 +28,8 @@ getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '', 'Tot
 %Basica parcial
 analyzeGraphletDistances(strcat('results\distanceMatrix\biologicalImagesAndVoronoi\', 'BasicaParcial\'), 'gdda');
 analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiNoise\', 'BasicaParcial\'), 'gdda');
-analyzeGraphletDistances(strcat('results\distanceMatrix\SickEpitheliums\', 'BasicaParcial\AllAtrophy\'), 'gdda');
-analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiWeighted\', 'BasicaParcial\Neighbours\'), 'gdda');
+analyzeGraphletDistances(strcat('results\distanceMatrix\SickEpitheliums\', 'BasicaParcial\'), 'gdda');
+analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiWeighted\', 'BasicaParcial\NeighboursOfCancerCells\'), 'gdda');
 analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiWeighted\', 'BasicaParcial\CancerCells\'), 'gdda');
 analyzeGraphletDistances(strcat('results\distanceMatrix\Neo\', 'BasicaParcial\'), 'gdda');
 
@@ -37,16 +37,16 @@ analyzeGraphletDistances(strcat('results\distanceMatrix\Neo\', 'BasicaParcial\')
 %Basica
 analyzeGraphletDistances(strcat('results\distanceMatrix\biologicalImagesAndVoronoi\', 'Basica\'), 'gdda');
 analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiNoise\', 'Basica\'), 'gdda');
-analyzeGraphletDistances(strcat('results\distanceMatrix\SickEpitheliums\', 'Basica\AllAtrophy\'), 'gdda');
-analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiWeighted\', 'Basica\Neighbours\'), 'gdda');
+analyzeGraphletDistances(strcat('results\distanceMatrix\SickEpitheliums\', 'Basica\'), 'gdda');
+analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiWeighted\', 'Basica\NeighboursOfCancerCells\'), 'gdda');
 analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiWeighted\', 'Basica\CancerCells\'), 'gdda');
 analyzeGraphletDistances(strcat('results\distanceMatrix\Neo\', 'Basica\'), 'gdda');
 
 %Total Parcial
 analyzeGraphletDistances(strcat('results\distanceMatrix\biologicalImagesAndVoronoi\', 'TotalParcial\'), 'gdda');
 analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiNoise\', 'TotalParcial\'), 'gdda');
-analyzeGraphletDistances(strcat('results\distanceMatrix\SickEpitheliums\', 'TotalParcial\EveryFile\AllAtrophy\'), 'gdda');
-analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiWeighted\', 'TotalParcial\Neighbours\'), 'gdda');
+analyzeGraphletDistances(strcat('results\distanceMatrix\SickEpitheliums\', 'TotalParcial\'), 'gdda');
+analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiWeighted\', 'TotalParcial\NeighboursOfCancerCells\'), 'gdda');
 analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiWeighted\', 'TotalParcial\CancerCells\'), 'gdda');
 analyzeGraphletDistances(strcat('results\distanceMatrix\Neo\', 'TotalParcial\'), 'gdda');
 
@@ -54,8 +54,8 @@ analyzeGraphletDistances(strcat('results\distanceMatrix\Neo\', 'TotalParcial\'),
 %Total
 analyzeGraphletDistances(strcat('results\distanceMatrix\biologicalImagesAndVoronoi\', 'Total\'), 'gdda');
 analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiNoise\', 'Total\'), 'gdda');
-analyzeGraphletDistances(strcat('results\distanceMatrix\SickEpitheliums\', 'Total\EveryFile\AllAtrophy\'), 'gdda');
-analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiWeighted\', 'Total\Neighbours\'), 'gdda');
+analyzeGraphletDistances(strcat('results\distanceMatrix\SickEpitheliums\', 'Total\'), 'gdda');
+analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiWeighted\', 'Total\NeighboursOfCancerCells\'), 'gdda');
 analyzeGraphletDistances(strcat('results\distanceMatrix\voronoiWeighted\', 'Total\CancerCells\'), 'gdda');
 analyzeGraphletDistances(strcat('results\distanceMatrix\Neo\', 'Total\'), 'gdda');
 
@@ -92,3 +92,8 @@ for i = 1:length(names)
     end
 end
 
+%% Info
+
+files = getAllFiles('E:\Pablo\Dropbox\Ingenieros Biologos\Ephitelia organization\voronoiNoise\');
+for i = 1:size(:
+img = imread('E:\Pablo\Dropbox\Ingenieros Biologos\Ephitelia organization\voronoiNoise\Image_1_Voronoi_001_par_radio_noise_5_r1.png');
