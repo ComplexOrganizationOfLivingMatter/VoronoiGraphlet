@@ -65,19 +65,22 @@ analyzeGraphletDistances(strcat('results\distanceMatrix\Neo\', 'Total\'), 'gdda'
 %comparisons
 comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\BasicaParcial\AgainstHexagons\', '' )
 comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\BasicaParcial\AgainstVoronoi1\', '' )
+comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\BasicaParcial\AgainstVoronoi1\', 'GDDRV_GDDRH')
 
 %comparisons
 comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\Basica\AgainstHexagons\' , '')
 comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\Basica\AgainstVoronoi1\' , '')
+comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\Basica\AgainstVoronoi1\', 'GDDRV_GDDRH')
 
 %comparisons
 comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\TotalParcial\AgainstHexagons\', '' )
 comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\TotalParcial\AgainstVoronoi1\', '' )
+comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\TotalParcial\AgainstVoronoi1\', 'GDDRV_GDDRH')
 
 %comparisons
 comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\Total\AgainstHexagons\', '' )
 comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\Total\AgainstVoronoi1\', '')
-
+comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\Total\AgainstVoronoi1\', 'GDDRV_GDDRH')
 
 %% INDIVIDUAL CELL COMPARISON
 
@@ -91,9 +94,3 @@ for i = 1:length(names)
         plot(differenceMean(i), distanceMatrix(i), 'o', 'color', [0.0 0.6 0.0]);
     end
 end
-
-%% Info
-
-files = getAllFiles('E:\Pablo\Dropbox\Ingenieros Biologos\Ephitelia organization\voronoiNoise\');
-for i = 1:size(:
-img = imread('E:\Pablo\Dropbox\Ingenieros Biologos\Ephitelia organization\voronoiNoise\Image_1_Voronoi_001_par_radio_noise_5_r1.png');
