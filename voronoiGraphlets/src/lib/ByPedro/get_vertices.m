@@ -33,10 +33,10 @@ for row=1:size(L_img,1)
 
 end
 
-imshow(L_img)
-hold on
-for i=1:size(vertices,2), a=vertices{1,i}; plot(a(2),a(1),'*r'), end
-
-hold off
+% imshow(L_img)
+% hold on
+% for i=1:size(vertices,2), a=vertices{1,i}; plot(a(2),a(1),'*r'), end
+% 
+% hold off
 end
 
