@@ -1,5 +1,5 @@
 function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( currentPath, kindOfGraphics )
-%UNTITLED2 Summary of this function goes here
+%comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons Summary of this function goes here
 %   Detailed explanation goes here
     set(0,'DefaultAxesFontName', 'Helvetica-Narrow', 'DefaultAxesFontSize', 30, 'DefaultLineMarkerSize', 18)
     clearvars -except currentPath kindOfGraphics
@@ -54,6 +54,7 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
         
         %%%%% Not really used! CARE!!!!!!
         load(strcat('results\comparisons\Total\maxLength5WithoutJumps\AgainstHexagons\', 'allDifferences.mat'))
+        notWanted = cellfun(@(x) isempty(strfind(x, 'imagen')) == 0 & isempty(strfind(x, '001')) == 0 & isempty(strfind(x, 'totalGraphlets')), namesFinal);
         differenceWithRegularHexagon = vertcat(differenceWithRegularHexagon(notWanted == 0)', differenceWithRegularHexagonToAppend);
         names = {namesFinal{notWanted == 0}, namesToAppend{:}};
         %%%%% END CARE!!!!
@@ -298,22 +299,24 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
         end
     end
     
-    newNames = {'BCA', 'Eye', 'cNT', 'dWL', 'dWP', 'CVT', 'Voronoi weighted - Cancer cells', 'CVTn', 'Case II', 'Case III', 'Case IV', 'dMWP', 'Atrophy', 'Control Proliferative', 'Control No Proliferative', 'BNA', 'Voronoi weighted - Neighbours of cancer cells', 'Neo'};
+    newNames = {'BCA', 'Eye', 'cNT', 'dWL', 'dWP', 'CVT', 'CVTw1', 'CVTn', 'Case II', 'Case III', 'Case IV', 'dMWP', 'Atrophy', 'Control', 'Control No Prol', 'BNA', 'CVTw2', 'Neo'};
     
     
     auxLim = xlim;
     xlim([0 auxLim(2)])
     auxLim = ylim;
+    currentPathSplitted = strsplit(currentPath, '\');
     
     %%GDDRV vs GDDRH
     if isequal(kindOfGraphics, 'GDDRV_GDDRH')
         ylim([0 auxLim(2)])
         
-        legend(h(h(:, 1) > 0, 1), newNames(h(:, 1) > 0)', 'Location', 'best');
+        legend(h(h(:, 1) > 0, 1), newNames(h(:, 1) > 0)', 'Location', 'best', 'EdgeColor', [1 1 1]);
         
-        xlabel('Graphlet degree distance random voronoi (GDDRV)', 'FontWeight', 'bold');
-        ylabel('Graphlet degree distance-hexagons (GDDH)', 'FontWeight', 'bold');
-        export_fig(strcat('GDDRV_GDDH', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-pdf', '-r300', '-opengl');
+        xlabel('GDDRV', 'FontWeight', 'bold');
+        ylabel('GDDH', 'FontWeight', 'bold');
+        %export_fig(strcat('GDDRV_GDDH', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-pdf', '-r300', '-opengl');
+        saveas(h1, strcat(currentPathSplitted{4}, '_GDDRV_GDDH', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
     else
         ylim([0 100])
         
@@ -323,11 +326,11 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
         
         if isempty(strfind(currentPath, 'Voronoi1')) == 0
             xlabel('Graphlet degree distance random voronoi (GDDRV)', 'FontWeight', 'bold');
-            saveas(h1, strcat('GDDRV_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
+            saveas(h1, strcat(currentPathSplitted{4}, '_GDDRV_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
             %print(h1, strcat('GDDRV_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-djpeg', '-r300', '-painters');
         else
             xlabel('Graphlet degree distance-hexagons (GDDH)', 'FontWeight', 'bold');
-            saveas(h1, strcat('GDDH_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
+            saveas(h1, strcat(currentPathSplitted{4}, '_GDDH_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
             %set(findall(0,'Type','Line'), 'MarkerSize', 20)
             %print(h1, strcat('GDDH_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-djpeg', '-r300', '-painters');
         end
