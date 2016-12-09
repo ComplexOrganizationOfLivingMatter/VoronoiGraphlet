@@ -31,8 +31,10 @@ function [  ] = getPercentageOfHexagons( currentPath, maxLengthStr, maxLengthVor
         %Check which files we want.
         if isempty(strfind(lower(diagramName), '.ndump2')) == 0 && isempty(strfind(lower(diagramNameSplitted{end-1}), 'atrophiccells'))
             if isempty(strfind(lower(diagramNameSplitted{4}), lower(maxLengthStr))) == 0 || isempty(maxLengthStr)
-                if (isempty(strfind(lower(diagramName), 'weight')) == 0 && isempty(strfind(lower(diagramNameSplitted{end-1}), lower(maxLengthVoronoiWeighted))) == 0) || isempty(strfind(lower(diagramName), 'weight'))
-                    diagramName;
+                if (isempty(strfind(lower(diagramName), 'weight')) || (isempty(strfind(lower(diagramNameSplitted{end-1}), lower(maxLengthVoronoiWeighted))) == 0 && isempty(strfind(lower(diagramName), 'weight')) == 0)) && (isempty(strfind(lower(diagramName), 'rosetta')) || (isempty(strfind(lower(diagramNameSplitted{end-1}), lower(maxLengthVoronoiWeighted))) == 0 && isempty(strfind(lower(diagramName), 'rosetta')) == 0))
+                    if isempty(strfind(lower(diagramName), 'rosetta')) == 0
+                        diagramName;
+                    end
                     matrixGraphlets = csvread(fullPathFile);
 
                     percentageOfTriangles(end+1) = sum(matrixGraphlets(:, 1) == 3) / size(matrixGraphlets, 1)*100;
@@ -61,6 +63,7 @@ function [  ] = getPercentageOfHexagons( currentPath, maxLengthStr, maxLengthVor
 %     percentageOfHexagons;
 %     nameFiles;
     %points1Dimension = mdscale(distanceMatrix, 1, 'Criterion', 'sstress');
+    save(strcat('results\comparisons\EveryFile\polygonDistribution', maxLengthStr , '-Weighted_', maxLengthVoronoiWeighted, '.mat'), 'characteristicsCVT', 'nameFiles');
     save(strcat('results\comparisons\EveryFile\polygonDistributionDistanceMatrix', maxLengthStr , '-Weighted_', maxLengthVoronoiWeighted, '.mat'), 'distanceMatrix', 'nameFiles');
     save(strcat('results\comparisons\EveryFile\percentageOfHexagons', maxLengthStr, '-Weighted_', maxLengthVoronoiWeighted, '.mat'), 'percentageOfHexagons', 'nameFiles');
 
