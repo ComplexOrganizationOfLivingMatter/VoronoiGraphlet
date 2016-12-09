@@ -40,7 +40,6 @@ function [ ] = filterByNonValidCells( currentPath, neighboursPath, kindOfValidCe
 
         if isempty(dataFileName) == 0
             load(dataFileName{1});
-
             if isempty(strfind(outputFile, 'Weighted')) == 0 && isequal(kindOfValidCells, 'finalValidCells')
 
                 imageNameSplitted = strsplit(imageNameReal, '_');
@@ -76,7 +75,7 @@ function [ ] = filterByNonValidCells( currentPath, neighboursPath, kindOfValidCe
                 end
             elseif exist(outputFile, 'file') ~= 2
                 if isequal(kindOfValidCells, 'finalValidCells') == 0
-                    if isempty(strfind(outputFile, 'weight')) == 0
+                    if isempty(strfind(outputFile, 'weight')) == 0 || isempty(strfind(outputFile, 'rosetta')) == 0
                         outputFileSplitted = strsplit(outputFile, '\');
                         outputNeigboursFileSplitted = strsplit(neighboursPath, '\');
                         outputFile = strcat(strjoin(outputFileSplitted(1:end-1), '\'), '\', outputNeigboursFileSplitted{end-1} ,'\', imageNameReal(1:end-5), '.ndump2');
@@ -87,7 +86,11 @@ function [ ] = filterByNonValidCells( currentPath, neighboursPath, kindOfValidCe
                     end
                 else
                     matrixToFilter(:, removingGraphlets) = 0;
-                    finalMatrixFiltered = matrixToFilter(finalValidCells, :);
+                    if isempty(strfind(outputFile, 'rosetta'))
+                        finalMatrixFiltered = matrixToFilter(finalValidCells, :);
+                    else
+                        finalMatrixFiltered = matrixToFilter(finalTargetCells, :);
+                    end
                 end
 
                 if size(finalMatrixFiltered, 1) > 6
