@@ -12,6 +12,7 @@ voronoiGraphlets/results/*
 voronoiGraphlets/test/*
 voronoiGraphlets/data/*
 voronoiGraphlets/src/lib/export_fig-master/*
+voronoiGraphlets/src/lib/Plotly/*
 *.fig
 *.tif
 *.nd2
