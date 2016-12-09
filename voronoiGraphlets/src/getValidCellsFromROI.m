@@ -135,6 +135,8 @@ function [ finalValidCells ] = getValidCellsFromROI(currentPath, maxPathLength, 
                 celulas_validas = validCells;
                 save(outputFile, 'finalValidCells', 'celulas_validas', 'vecinos');
                 clear vecinos celulas_validas
+                
+                %finalValidCells = filteredFinalValidCells(validCells, neighbours, maxPathLength, fullPathFile, weightedCellsAndNeigbhours, 'weighted' );
             end
         end
     end

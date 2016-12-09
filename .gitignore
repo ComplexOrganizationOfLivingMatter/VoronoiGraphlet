@@ -20,3 +20,4 @@ voronoiGraphlets/src/lib/export_fig-master/*
 *.gw
 *.png
 *.bmp
+*.xls
