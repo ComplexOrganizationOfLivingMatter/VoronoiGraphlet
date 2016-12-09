@@ -121,7 +121,7 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
         error('Wrong percentages');
     end
 
-    numberOfTypes = 18;
+    numberOfTypes = 19;
     colors = hsv(numberOfTypes);
     colors(1, :) = [0.0 0.2 0.0]; %BCA
     colors(2, :) = [1.0 0.4 0.0]; %Eye
@@ -141,6 +141,7 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
     colors(14, :) = [1.0 1.0 0.0]; %Control Sim Prol
     colors(16, :) = [0.2 0.4 0.6]; %BNA
     colors(17, :) = [0.2 0.4 0.6]; %Neo or dWLm
+    colors(18, :) = [0.4 0.0 0.0]; %rosetta
     h1 = figure('units','normalized','outerposition',[0 0 1 1], 'Color', [1 1 1]);
     h = zeros(numberOfTypes);
     hold on;
@@ -299,7 +300,7 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
         end
     end
     
-    newNames = {'BCA', 'Eye', 'cNT', 'dWL', 'dWP', 'CVT', 'CVTw1', 'CVTn', 'Case II', 'Case III', 'Case IV', 'dMWP', 'Atrophy', 'Control', 'Control No Prol', 'BNA', 'CVTw2', 'Neo'};
+    newNames = {'BCA', 'Eye', 'cNT', 'dWL', 'dWP', 'CVT', 'CVTw1', 'CVTn', 'Case II', 'Case III', 'Case IV', 'dMWP', 'Atrophy', 'Control', 'Control No Prol', 'BNA', 'CVTw2', 'Neo', 'Rosetta'};
     
     
     auxLim = xlim;
