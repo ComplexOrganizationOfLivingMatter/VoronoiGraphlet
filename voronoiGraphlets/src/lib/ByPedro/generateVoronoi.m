@@ -5,6 +5,18 @@ function [  ] = generateVoronoi( numIterations, sizeImage ,numPoints, fileName )
 %   Developed by Pablo Vicente-Munuera and Pedro Gomez-Galvez
 
     initCentroids = Chose_seeds_positions_Original(1, sizeImage, sizeImage, numPoints, 2);
+%     image = imread('image/imagen_1_Diagrama_001.png');
+%     D = bwdist(image);        %% Calcula las distancias más próximas de las casillas a la semilla
+%         DL = watershed(D);         %% Separa regiones (celulas) por proximidad
+%         bgm = DL == 0;             %% Le da valor 1 a los límites y cero al interior de las células
+%         Voronoi = bgm;
+%     L_original = bwlabel(1 - Voronoi, 8);  %% De esta manera da una etiqueta a todas las celulas y da valor 1 a todas las celulas del borde
+%     %%Obtenemos nuevos centroides
+%     centro = regionprops(L_original);
+%     centros_nuevos = cat(1, centro.Centroid);
+%     centros_nuevos=round(centros_nuevos);
+%     centros_nuevos=fliplr(centros_nuevos); %[filas,columnas]
+%     initCentroids=centros_nuevos;
     j = 1;
     while j <= numIterations
         image = zeros(sizeImage, sizeImage); % Se define imagen que contiene puntos
