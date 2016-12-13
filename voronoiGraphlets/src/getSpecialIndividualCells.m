@@ -27,14 +27,22 @@ function [ ] = getSpecialIndividualCells( infoPath, outputPath, additionalDataPa
             
             matrixGraphlets = dlmread(allFilesInfo{graphletFile});
             matrixGraphlets(:, removingGraphlets) = 0;
+            notEspecialCells = finalValidCells';
             for i = 1:length(nameVars)
                 especialCells = intersect(cells{i}, finalValidCells);
+                notEspecialCells = notEspecialCells(ismember(notEspecialCells, especialCells) == 0);
                 for numCell = 1:size(especialCells)
-                    
                     finalOutputFile = strcat(outputPath, strjoin(fileNameSplitted(1:2), '_'), '_', nameVars{i}, '_' ,num2str(especialCells(numCell)), '_numNeighbours_', num2str(matrixGraphlets(especialCells(numCell), 1)),'.ndump2');
                     if exist(finalOutputFile, 'file') ~= 2
                         dlmwrite(finalOutputFile, matrixGraphlets(especialCells(numCell), :), ' ');
                     end
+                end
+            end
+            
+            for i = 1:length(notEspecialCells)
+                finalOutputFile = strcat(outputPath, strjoin(fileNameSplitted(1:2), '_'), '_normalCells_' ,num2str(notEspecialCells(i)), '_numNeighbours_', num2str(matrixGraphlets(notEspecialCells(i), 1)),'.ndump2');
+                if exist(finalOutputFile, 'file') ~= 2
+                    dlmwrite(finalOutputFile, matrixGraphlets(notEspecialCells(i), :), ' ');
                 end
             end
         end
