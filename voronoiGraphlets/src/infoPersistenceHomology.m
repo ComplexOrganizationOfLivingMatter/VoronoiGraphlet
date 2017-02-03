@@ -79,6 +79,6 @@ for numFile = 1:size(allFiles, 1)
         load(strcat(strjoin(fullPathFileSplitted(1:end-1), '\'), '\' ,nameFileSplitted{1}, '_data.mat'));
         valid_cells = celulas_validas;
         neighs_real = vecinos;
-        save(strcat('E:\Pablo\HaveToSend\Ephitelia organization\', nameFile), 'l_img' ,'cellInfo', 'valid_cells', 'neighs_real');
+        save(strcat('E:\Pablo\HaveToSend\Ephitelia organization\', nameFileSplitted{1}, '_data.mat'), 'l_img' ,'cellInfo', 'valid_cells', 'neighs_real');
     end
 end
