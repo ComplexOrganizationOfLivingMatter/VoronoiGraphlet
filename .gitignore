@@ -22,3 +22,4 @@ voronoiGraphlets/src/lib/Plotly/*
 *.png
 *.bmp
 *.xls
+*.ffs_db
