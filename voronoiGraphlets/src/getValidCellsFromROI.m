@@ -78,18 +78,23 @@ function [ finalValidCells ] = getValidCellsFromROI(currentPath, maxPathLength, 
             else
                 fullPathFile
                 load(fullPathFile);%load valid cells and neighbours
-
-                if exist('vecinos', 'var') == 1
-                    neighbours = vecinos;
-                    clear vecinos
-                elseif exist('Vecinos', 'var') == 1
-                    neighbours = Vecinos;
-                    clear Vecinos
+    
+                if exist('neighs_real', 'var') == 1
+                    neighbours = neighs_real;
+                    validCells = valid_cells;
                 else
-                    error('No neighbours variable');
+                    if exist('vecinos', 'var') == 1
+                        neighbours = vecinos;
+                        clear vecinos
+                    elseif exist('Vecinos', 'var') == 1
+                        neighbours = Vecinos;
+                        clear Vecinos
+                    else
+                        error('No neighbours variable');
+                    end
+                    validCells = celulas_validas;
+                    clear celulas_validas
                 end
-                validCells = celulas_validas;
-                clear celulas_validas
                 neighboursEmpty = cellfun(@(x) isempty(x), neighbours);
                 maxCellLabel = max(cellfun(@(x) max(x), neighbours(neighboursEmpty == 0)));
                 noValidCells = setxor(1:maxCellLabel, validCells);
@@ -99,7 +104,10 @@ function [ finalValidCells ] = getValidCellsFromROI(currentPath, maxPathLength, 
                 end
 
                 finalValidCells = [];
-                weightedCellsAndNeigbhours = union(vertcat(neighbours{wts > 0}), find(wts > 0));
+                if isempty(strfind(fullPathFile, 'Weighted')) == 0 
+                    weightedCellsAndNeigbhours = union(vertcat(neighbours{wts > 0}), find(wts > 0));
+                end
+                
                 for numCell = 1:size(neighbours, 2)
                     neighboursInMaxPathLength = [];
                     antNeighbours = [neighbours{numCell}];
