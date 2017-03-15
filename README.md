@@ -1,2 +1,1 @@
-# PhD-miscelanious
-Various projects
+# Voronoi graphlets
