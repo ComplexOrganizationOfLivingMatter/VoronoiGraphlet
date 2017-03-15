@@ -1,9 +1,10 @@
 function [ ] = compare3D( currentPath )
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
-    clearvars -except currentPath
+    set(0,'DefaultAxesFontName', 'Helvetica-Narrow', 'DefaultAxesFontSize', 30, 'DefaultLineMarkerSize', 18)
+    clearvars -except currentPath kindOfGraphics
     unifyDistances(currentPath);
-    load('results\comparisons\EveryFile\maxLength5\AgainstHexagons\allDifferences.mat' );
+    load(strrep(strcat(currentPath, 'allDifferences.mat'), 'AgainstHexagons', 'AgainstVoronoi1'))
     nameFiles = namesFinal;
     percentageOfHexagons = differenceWithRegularHexagon';
     load(strcat(currentPath, 'allDifferences.mat'))
@@ -28,7 +29,7 @@ function [ ] = compare3D( currentPath )
     
     rightPercentages = zeros(1, size(names, 2));
     for numName = 1:size(nameFiles, 2)
-        numFound = find(cellfun(@(x) isequal(nameFiles{numName}, x ), namesToCompare, 'UniformOutput', true) == 1);
+        numFound = find(cellfun(@(x) isequal(nameFiles{numName}, x ), names, 'UniformOutput', true) == 1);
         if size(numFound, 1) > 1
             error('MEEEEC');
         end
@@ -47,7 +48,11 @@ function [ ] = compare3D( currentPath )
         error('Wrong percentages');
     end
     differenceRV = percentageOfHexagons;
-    load('results\comparisons\EveryFile\percentageOfHexagons.mat');
+    if isempty(strfind(currentPath, 'maxLength5'))
+        load('results\comparisons\EveryFile\percentageOfHexagons-Weighted_maxLength4.mat')
+    else
+        load('results\comparisons\EveryFile\percentageOfHexagons-Weighted_maxLength5.mat')
+    end
     nameFiles = cellfun(@(x) strsplit(x, '\'), nameFiles, 'UniformOutput', false);
     nameFiles = cellfun(@(x) x{end}, nameFiles, 'UniformOutput', false);
     nameFiles = cellfun(@(x) x(1:end-7), nameFiles, 'UniformOutput', false);
@@ -73,25 +78,28 @@ function [ ] = compare3D( currentPath )
         error('Wrong percentages');
     end
 
- numberOfTypes = 17;
+    numberOfTypes = 19;
     colors = hsv(numberOfTypes);
     colors(1, :) = [0.0 0.2 0.0]; %BCA
     colors(2, :) = [1.0 0.4 0.0]; %Eye
-    colors(3, :) = [0.0 0.4 0.8]; %cNT
+    colors(3, :) = [0.2 0.8 1.0]; %cNT
     colors(4, :) = [0.0 0.6 0.0]; %dWL
-    colors(5, :) = [0.8 0.0 0.0]; %dWP
+    colors(5, :) = [1.0 0.0 0.0]; %dWP
     colors(6, :) = [0.8 0.8 0.8]; %voronoi
-    colors(7, :) = [0.6 0.0 1.0]; %voronoiWeighted
+    colors(7, :) = [0.2 0.6 0.6]; %voronoiWeighted Cancer
+    colors(8, :) = [0.0 0.0 0.6]; %voronoiWeighted Neighbours
     %colors(8, :) = [1.0 1.0 0.0]; %voronoiNoise
     colors(9, :) = [1.0 0.8 1.0]; %Case II
-    colors(10, :) = [1.0 0.4 1.0]; %Case III
-    colors(11, :) = [1.0 0.0 1.0]; %Case IV
-    colors(12, :) = [0.6 0.6 1.0]; %dMWP
+    colors(10, :) = [1.0 0.2 1.0]; %Case III
+    colors(11, :) = [0.8 0.0 0.6]; %Case IV
+    colors(12, :) = [0.6 0.0 1.0]; %dMWP
     colors(13, :) = [0.2 0.8 1.0]; %Atrophy Sim
     colors(15, :) = [0.0 0.0 0.0]; %Control Sim No Prol
-    colors(14, :) = [0.4 0.0 0.0]; %Control Sim Prol
+    colors(14, :) = [1.0 1.0 0.0]; %Control Sim Prol
     colors(16, :) = [0.2 0.4 0.6]; %BNA
-    h1 = figure('units','normalized','outerposition',[0 0 1 1]);
+    colors(17, :) = [0.2 0.4 0.6]; %Neo or dWLm
+    colors(18, :) = [0.4 0.0 0.0]; %rosetta
+    h1 = figure('units','normalized','outerposition',[0 0 1 1], 'Color', [1 1 1]);
     h = zeros(numberOfTypes);
     indices = [1:20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700];
     offSetGraysFont = 10;
@@ -162,16 +170,21 @@ function [ ] = compare3D( currentPath )
     end
     
     %'BNA' remaining
-    newNames = {'BCA', 'Eye', 'cNT', 'dWL', 'dWP', 'Voronoi', 'Voronoi weighted - Cancer cells', 'Voronoi Noise', 'Case II', 'Case III', 'Case IV', 'dMWP', 'Atrophy', 'Control Proliferative', 'Control No Proliferative', 'BNA', 'Voronoi weighted - Neighbours of cancer cells'};
-    hlegend1 = legend(h(h(:, 1) > 0, 1), newNames(h(:, 1) > 0)', 'Location', 'best');
+    newNames = {'BCA', 'Eye', 'cNT', 'dWL', 'dWP', 'CVT', 'CVTw1', 'CVTn', 'Case II', 'Case III', 'Case IV', 'dMWP', 'Atrophy', 'Control', 'Control No Prol', 'BNA', 'CVTw2', 'Neo', 'Rosetta'};
     
-    xlabel('Graphlet degree distance-hexagons (GDDH)');
-    ylabel('Graphlet degree distance random voronoi (GDDRV)');
+    currentPathSplitted = strsplit(currentPath, '\');
+    legend(h(h(:, 1) > 0, 1), newNames(h(:, 1) > 0)', 'Location', 'best', 'EdgeColor', [1 1 1]);
+    
+    xlabel('GDDRV', 'FontWeight', 'bold');
+    ylabel('GDDH', 'FontWeight', 'bold');
+    zlabel('Percentage of hexagons', 'FontWeight', 'bold');
     auxLim = xlim;
     xlim([0 auxLim(2)])
     auxLim = ylim;
     ylim([0 auxLim(2)])
     zlim([0 100]);
+    
+    saveas(h1, strcat(currentPathSplitted{4}, '_PercentageOfHexagons_GDDRV_GDDH', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
 
 %     export_fig(h1, 'differenceGDDRV_GDDH', '-pdf', '-r300');
 %     export_fig(h1, 'differenceGDDRV_GDDH----OpenGl', '-pdf', '-r300', '-opengl');

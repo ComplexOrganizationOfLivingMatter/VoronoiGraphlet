@@ -139,11 +139,12 @@ infoPersistenceHomology('data\biologicalImagesAndVoronoi\cNT\images\');
 infoPersistenceHomology('data\voronoiNoise\images\');
 
 %% CVT embo
-fullPathGraphlet = 'D:\Pablo\VoronoiGraphlet\voronoiGraphlets\results\graphletResultsFiltered\voronoiEmbo\TotalPartialV1_V5\gdda.txt';
+fullPathGraphlet = 'D:\Pablo\VoronoiGraphlet\voronoiGraphlets\results\graphletResultsFiltered\voronoiEmbo\TotalPartial\gdda.txt';
 distanceMatrixInit = dlmread(fullPathGraphlet, '\t', 1, 1);
 names = importfileNames(fullPathGraphlet);
 [names, it] = sort(names);
 distanceMatrix = distanceMatrixInit(it, it);
-idsVoronoi = cellfun(@(x) isempty(strfind(x, 'Diagrama_')) == 0, names);
-distanceFinal = distanceMatrix(idsVoronoi, idsVoronoi == 0);
+idsVoronoi = cellfun(@(x) isempty(strfind(x, 'Diagrama_4')) == 0, names);
+idsClass2 = cellfun(@(x) isempty(strfind(x, 'dWP')) == 0, names);
+distanceFinal = distanceMatrix(idsVoronoi, idsClass2);
 mean(distanceFinal(:))

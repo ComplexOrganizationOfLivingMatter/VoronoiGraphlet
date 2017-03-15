@@ -14,6 +14,20 @@ function [ ] = analyzeGraphletDistances(currentPath, typeOfDistance)
     
     save(strcat(currentPath, 'distanceMatrix', upper(typeOfDistance) ,'.mat'), 'distanceMatrix', 'names');
     
+%     dis = distanceMatrix(22:end, 22:end);
+%     n = names(22:end);
+%     p = cmdscale(dis);
+%     
+%     figure;
+%     hold on;
+%     for i = 1:length(p)
+%         if isempty(strfind(n{i}, 'azules')) == 0
+%             plot(p(i, 1), plot(i, 2), '-' ,'Color', [1 0 1]);
+%         else
+%             plot(p(i, 1), plot(i, 2), 'o', 'Color', [1 0 1]);
+%         end
+%     end
+    
     voronoiDiagram1 = cellfun(@(x) isempty(strfind(x, 'Diagrama_001')) == 0 & isempty(strfind(x, 'weight')), names);
     distanceMatrix = distanceMatrix(:, voronoiDiagram1);
     distanceMatrix = distanceMatrix(2:end, :);

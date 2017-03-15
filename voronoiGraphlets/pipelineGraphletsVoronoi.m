@@ -7,8 +7,8 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
 %
 %   Developed by Pablo Vicente-Munuera
     clearvars -except typeOfData
-    cd E:\Pablo\VoronoiGraphlet\voronoiGraphlets\
-    addpath(genpath('E:\Pablo\VoronoiGraphlets\voronoiGraphlets\src\'))
+    cd D:\Pablo\VoronoiGraphlet\voronoiGraphlets\
+    addpath(genpath('D:\Pablo\VoronoiGraphlets\voronoiGraphlets\src\'))
 
     dataDir = strcat('data\', typeOfData);
     %Firstly, we calculate neighbours and valid cells
@@ -29,7 +29,7 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
     end
     
     disp('Creating network');
-    createNetworksFromVoronoiDiagrams(strcat(validCellsDir, 'maxLength5\'), networksDir);
+     createNetworksFromVoronoiDiagrams(strcat(validCellsDir, 'maxLength5\'), networksDir);
     
     
     disp('Leda files...');
@@ -40,10 +40,10 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
     end
     
     %Now, we have to wait until .ndump2 are created
-%     answer = 'n';
-%     while answer ~= 'y'
-%         answer = input('Are .ndump2 created? [y/n] ');
-%     end
+    answer = 'n';
+    while answer ~= 'y'
+        answer = input('Are .ndump2 created? [y/n] ');
+    end
     %After that, 
     graphletResultsFilteredDir = strcat('results\graphletResultsFiltered\', typeOfData);
     mkdir(graphletResultsFilteredDir);
@@ -68,59 +68,65 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
 %         filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', i, strcat('WithGraphlet', num2str(i)));
 %     end
     %Basica
-    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', 16:73, 'Basica');
-    %BasicaParcial
-    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', [9, 15, 16:73], 'BasicaParcial');
-    %Total
-    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', [50, 51, 63:65, 55, 56, 69, 70], 'Total');
+%     filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', 16:73, 'Basica');
+%     %BasicaParcial
+%     filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', [9, 15, 16:73], 'BasicaParcial');
+%     %Total
+     filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', [50, 51, 63:65, 55, 56, 69, 70], 'Total');
     %TotalParcial
     filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', [9, 15, 23, 24, 37:39, 50:59, 63:73], 'TotalParcial');
     
     %Valid cells
-    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'validCells', [], '');
-    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'validCells', [], '');
+%     filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'validCells', [], '');
+%     filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'validCells', [], '');
 
-    %Individual cells
-    graphletResultsIndividual = strcat('results\graphletResultsIndividual\', typeOfData);
-    mkdir(graphletResultsIndividual);
-    getSpecialIndividualCells(graphletResultsDir, graphletResultsIndividual, dataDir);
-    
-    distanceDir = strcat('results\distanceMatrix\', typeOfData);
-
-    mkdir(distanceDir, 'Basica');
-    mkdir(distanceDir, 'BasicaParcial');
-    mkdir(distanceDir, 'Total');
-    mkdir(distanceDir, 'TotalParcial');
-    
-    comparisonDir = 'results\comparisons\EveryFile\';
-    mkdir(comparisonDir, strcat('Total\AgainstVoronoi1\', typeOfData));
-    mkdir(comparisonDir, strcat('Total\AgainstHexagons\', typeOfData));
-    mkdir(comparisonDir, strcat('TotalParcial\AgainstVoronoi1\', typeOfData));
-    mkdir(comparisonDir, strcat('TotalParcial\AgainstHexagons\', typeOfData));
-    mkdir(comparisonDir, strcat('Basica\AgainstVoronoi1\', typeOfData));
-    mkdir(comparisonDir, strcat('Basica\AgainstHexagons\', typeOfData));
-    mkdir(comparisonDir, strcat('BasicaParcial\AgainstVoronoi1\', typeOfData));
-    mkdir(comparisonDir, strcat('BasicaParcial\AgainstHexagons\', typeOfData));
-    
-    if isempty(strfind(typeOfData, 'Weighted')) == 0
-        mkdir(comparisonDir, strcat('Basica\AgainstHexagons\', typeOfData, 'NeighboursOfCancerCells'));
-        mkdir(comparisonDir, strcat('Basica\AgainstHexagons\', typeOfData, 'CancerCells'));
-        mkdir(comparisonDir, strcat('BasicaParcial\AgainstHexagons\', typeOfData, 'NeighboursOfCancerCells'));
-        mkdir(comparisonDir, strcat('BasicaParcial\AgainstHexagons\', typeOfData, 'CancerCells'));
-        mkdir(comparisonDir, strcat('Total\AgainstHexagons\', typeOfData, 'NeighboursOfCancerCells'));
-        mkdir(comparisonDir, strcat('Total\AgainstHexagons\', typeOfData, 'CancerCells'));
-        mkdir(comparisonDir, strcat('TotalParcial\AgainstHexagons\', typeOfData, 'NeighboursOfCancerCells'));
-        mkdir(comparisonDir, strcat('TotalParcial\AgainstHexagons\', typeOfData, 'CancerCells'));
-        mkdir(comparisonDir, strcat('Basica\AgainstVoronoi1\', typeOfData, 'NeighboursOfCancerCells'));
-        mkdir(comparisonDir, strcat('Basica\AgainstVoronoi1\', typeOfData, 'CancerCells'));
-        mkdir(comparisonDir, strcat('BasicaParcial\AgainstVoronoi1\', typeOfData, 'NeighboursOfCancerCells'));
-        mkdir(comparisonDir, strcat('BasicaParcial\AgainstVoronoi1\', typeOfData, 'CancerCells'));
-        mkdir(comparisonDir, strcat('Total\AgainstVoronoi1\', typeOfData, 'NeighboursOfCancerCells'));
-        mkdir(comparisonDir, strcat('Total\AgainstVoronoi1\', typeOfData, 'CancerCells'));
-        mkdir(comparisonDir, strcat('TotalParcial\AgainstVoronoi1\', typeOfData, 'NeighboursOfCancerCells'));
-        mkdir(comparisonDir, strcat('TotalParcial\AgainstVoronoi1\', typeOfData, 'CancerCells'));
-    end
-    
-    getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '', 'maxLength5');
-    getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '', 'maxLength4');
+%     %Individual cells
+%     graphletResultsIndividual = strcat('results\graphletResultsIndividual\', typeOfData);
+% %     mkdir(strcat(graphletResultsIndividual, 'Total'));
+% %     mkdir(strcat(graphletResultsIndividual, 'TotalParcial'));
+% %     mkdir(strcat(graphletResultsIndividual, 'Basica'));
+% %     mkdir(strcat(graphletResultsIndividual, 'BasicaParcial'));
+%      getSpecialIndividualCells(graphletResultsDir, strcat(graphletResultsIndividual, 'Total\'), dataDir, strcat(validCellsDir, 'maxLength5\'), [50, 51, 63:65, 55, 56, 69, 70]);
+% %     getSpecialIndividualCells(graphletResultsDir, strcat(graphletResultsIndividual, 'TotalParcial\'), dataDir, strcat(validCellsDir, 'maxLength5\'), [9, 15, 23, 24, 37:39, 50:59, 63:73]);
+% %     getSpecialIndividualCells(graphletResultsDir, strcat(graphletResultsIndividual, 'BasicaParcial\'), dataDir, strcat(validCellsDir, 'maxLength4\'), [9, 15, 16:73]);
+% %     getSpecialIndividualCells(graphletResultsDir, strcat(graphletResultsIndividual, 'Basica\'), dataDir, strcat(validCellsDir, 'maxLength4\'), 16:73);
+%     
+%     distanceDir = strcat('results\distanceMatrix\', typeOfData);
+% 
+%     mkdir(distanceDir, 'Basica');
+%     mkdir(distanceDir, 'BasicaParcial');
+%     mkdir(distanceDir, 'Total');
+%     mkdir(distanceDir, 'TotalParcial');
+%     
+%     comparisonDir = 'results\comparisons\EveryFile\';
+%     mkdir(comparisonDir, strcat('Total\AgainstVoronoi1\', typeOfData));
+%     mkdir(comparisonDir, strcat('Total\AgainstHexagons\', typeOfData));
+%     mkdir(comparisonDir, strcat('TotalParcial\AgainstVoronoi1\', typeOfData));
+%     mkdir(comparisonDir, strcat('TotalParcial\AgainstHexagons\', typeOfData));
+%     mkdir(comparisonDir, strcat('Basica\AgainstVoronoi1\', typeOfData));
+%     mkdir(comparisonDir, strcat('Basica\AgainstHexagons\', typeOfData));
+%     mkdir(comparisonDir, strcat('BasicaParcial\AgainstVoronoi1\', typeOfData));
+%     mkdir(comparisonDir, strcat('BasicaParcial\AgainstHexagons\', typeOfData));
+%     
+%     if isempty(strfind(typeOfData, 'Weighted')) == 0
+%         mkdir(comparisonDir, strcat('Basica\AgainstHexagons\', typeOfData, 'NeighboursOfCancerCells'));
+%         mkdir(comparisonDir, strcat('Basica\AgainstHexagons\', typeOfData, 'CancerCells'));
+%         mkdir(comparisonDir, strcat('BasicaParcial\AgainstHexagons\', typeOfData, 'NeighboursOfCancerCells'));
+%         mkdir(comparisonDir, strcat('BasicaParcial\AgainstHexagons\', typeOfData, 'CancerCells'));
+%         mkdir(comparisonDir, strcat('Total\AgainstHexagons\', typeOfData, 'NeighboursOfCancerCells'));
+%         mkdir(comparisonDir, strcat('Total\AgainstHexagons\', typeOfData, 'CancerCells'));
+%         mkdir(comparisonDir, strcat('TotalParcial\AgainstHexagons\', typeOfData, 'NeighboursOfCancerCells'));
+%         mkdir(comparisonDir, strcat('TotalParcial\AgainstHexagons\', typeOfData, 'CancerCells'));
+%         mkdir(comparisonDir, strcat('Basica\AgainstVoronoi1\', typeOfData, 'NeighboursOfCancerCells'));
+%         mkdir(comparisonDir, strcat('Basica\AgainstVoronoi1\', typeOfData, 'CancerCells'));
+%         mkdir(comparisonDir, strcat('BasicaParcial\AgainstVoronoi1\', typeOfData, 'NeighboursOfCancerCells'));
+%         mkdir(comparisonDir, strcat('BasicaParcial\AgainstVoronoi1\', typeOfData, 'CancerCells'));
+%         mkdir(comparisonDir, strcat('Total\AgainstVoronoi1\', typeOfData, 'NeighboursOfCancerCells'));
+%         mkdir(comparisonDir, strcat('Total\AgainstVoronoi1\', typeOfData, 'CancerCells'));
+%         mkdir(comparisonDir, strcat('TotalParcial\AgainstVoronoi1\', typeOfData, 'NeighboursOfCancerCells'));
+%         mkdir(comparisonDir, strcat('TotalParcial\AgainstVoronoi1\', typeOfData, 'CancerCells'));
+%     end
+%     
+%     getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '', 'maxLength5');
+%     getPercentageOfHexagons('results\graphletResultsFiltered\allOriginal\', '', 'maxLength4');
 end
