@@ -13,6 +13,14 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
     %%GDDRV vs GDDRH
     if isequal(kindOfGraphics, 'GDDRV_GDDRH')
         load(strrep(strcat(currentPath, 'allDifferences.mat'), 'AgainstVoronoi1', 'AgainstHexagons'))
+    elseif isequal(kindOfGraphics, 'GDDV5_GDDH')
+        load(strrep(strcat(currentPath, 'allDifferences.mat'), 'AgainstVoronoi5', 'AgainstHexagons'))
+    elseif isequal(kindOfGraphics, 'GDDV5_GDDRV')
+        load(strrep(strcat(currentPath, 'allDifferences.mat'), 'AgainstVoronoi5', 'AgainstVoronoi1'))
+    end
+        
+
+    if isequal(kindOfGraphics, '') == 0
         nameFiles = namesFinal;
         percentageOfHexagons = differenceWithRegularHexagon';
 
@@ -157,10 +165,10 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
                 nameDiagram = strsplit(names{i}, '-');
                 h(8, :) = plot(differenceWithRegularHexagon(i), percentageOfHexagons(i), 'o', 'color', graysFont (indices == str2num(nameDiagram{5}), :));
                 pointColors(i, :) = graysFont (indices == str2num(nameDiagram{5}));
-            elseif isempty(strfind(names{i}, 'imagen')) == 0
-                nameDiagram = strsplit(names{i}, '-');
-                h(6, :) = plot(differenceWithRegularHexagon(i), percentageOfHexagons(i), 'o', 'color', graysFont (indices == str2num(nameDiagram{4}), :));
-                pointColors(i, :) = graysFont (indices == str2num(nameDiagram{4}));
+%             elseif isempty(strfind(names{i}, 'imagen')) == 0
+%                 nameDiagram = strsplit(names{i}, '-');
+%                 h(6, :) = plot(differenceWithRegularHexagon(i), percentageOfHexagons(i), 'o', 'color', graysFont (indices == str2num(nameDiagram{4}), :));
+%                 pointColors(i, :) = graysFont (indices == str2num(nameDiagram{4}));
             end
         end
     end
@@ -172,9 +180,9 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
             if isempty(strfind(names{i}, 'omm')) == 0
                 h(2, :) = plot(differenceWithRegularHexagon(i), percentageOfHexagons(i), 'o', 'color', colors(2, :));
                 pointColors(i, :) =  colors(2, :);
-            elseif isempty(strfind(names{i}, 'BC')) == 0
-                h(1, :) = plot(differenceWithRegularHexagon(i), percentageOfHexagons(i), 'o', 'color', colors(1, :));
-                pointColors(i, :) =  colors(1, :);
+%             elseif isempty(strfind(names{i}, 'BC')) == 0
+%                 h(1, :) = plot(differenceWithRegularHexagon(i), percentageOfHexagons(i), 'o', 'color', colors(1, :));
+%                 pointColors(i, :) =  colors(1, :);
             elseif isempty(strfind(names{i}, 'cNT')) == 0
                 h(3, :) = plot(differenceWithRegularHexagon(i), percentageOfHexagons(i), 'o', 'color', colors(3, :));
                 pointColors(i, :) =  colors(3, :);
@@ -340,15 +348,16 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
     currentPathSplitted = strsplit(currentPath, '\');
     
     %%GDDRV vs GDDRH
-    if isequal(kindOfGraphics, 'GDDRV_GDDRH')
+    if isequal(kindOfGraphics, '') == 0
+        classesUsed = strsplit(kindOfGraphics, '_');
         ylim([0 auxLim(2)])
         
         legend(h(h(:, 1) > 0, 1), newNames(h(:, 1) > 0)', 'Location', 'best', 'EdgeColor', [1 1 1]);
         
-        xlabel('GDDRV', 'FontWeight', 'bold');
-        ylabel('GDDH', 'FontWeight', 'bold');
+        xlabel(classesUsed{1}, 'FontWeight', 'bold');
+        ylabel(classesUsed{2}, 'FontWeight', 'bold');
         %export_fig(strcat('GDDRV_GDDH', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-pdf', '-r300', '-opengl');
-        saveas(h1, strcat(currentPathSplitted{4}, '_GDDRV_GDDH', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
+        saveas(h1, strcat(currentPathSplitted{4}, '_', kindOfGraphics, '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
     else
         ylim([0 100])
         
@@ -360,6 +369,10 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
             xlabel('Graphlet degree distance random voronoi (GDDRV)', 'FontWeight', 'bold');
             saveas(h1, strcat(currentPathSplitted{4}, '_GDDRV_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
             %print(h1, strcat('GDDRV_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-djpeg', '-r300', '-painters');
+        elseif isempty(strfind(currentPath, 'Voronoi5')) == 0
+            xlabel('Graphlet degree distance voronoi 5 (GDDV5)', 'FontWeight', 'bold');
+            saveas(h1, strcat(currentPathSplitted{4}, '_GDDV5_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
+            %print(h1, strcat('GDDV5_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-djpeg', '-r300', '-painters');
         else
             xlabel('Graphlet degree distance-hexagons (GDDH)', 'FontWeight', 'bold');
             saveas(h1, strcat(currentPathSplitted{4}, '_GDDH_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');

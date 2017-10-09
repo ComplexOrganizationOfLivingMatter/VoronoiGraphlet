@@ -12,7 +12,7 @@ function [  ] = unifyDistances( path )
 
         if isempty(strfind(imageName, 'distanceMatrix')) == 0 && isempty(strfind(fullPathImage, 'AtrophicCells')) %&& isempty(strfind(fullPathImage, '\CancerCells'))
             load(fullPathImage);
-            if isempty(strfind(fullPathImage, 'AgainstVoronoi1')) == 0
+            if isempty(strfind(fullPathImage, 'AgainstVoronoi')) == 0
                 differenceWithRegularHexagon = [differenceWithRegularHexagon, differenceMean'];
             else
                 differenceWithRegularHexagon = [differenceWithRegularHexagon, distanceMatrix(1, 2:end)];
@@ -22,7 +22,7 @@ function [  ] = unifyDistances( path )
                     names = names';
                 end
                 
-                if isempty(strfind(fullPathImage, 'AgainstVoronoi1'))
+                if isempty(strfind(fullPathImage, 'AgainstVoronoi'))
                     namesFinal = [namesFinal, names{2:end}];
                 else
                     namesFinal = [namesFinal, names{:}];
@@ -31,7 +31,7 @@ function [  ] = unifyDistances( path )
                 if size(names, 2) == 1
                     names = names';
                 end
-                if isempty(strfind(fullPathImage, 'AgainstVoronoi1'))
+                if isempty(strfind(fullPathImage, 'AgainstVoronoi'))
                      namesFinal = names(2:end);
                 else
                      namesFinal = names;
