@@ -357,7 +357,7 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
         xlabel(classesUsed{1}, 'FontWeight', 'bold');
         ylabel(classesUsed{2}, 'FontWeight', 'bold');
         %export_fig(strcat('GDDRV_GDDH', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-pdf', '-r300', '-opengl');
-        saveas(h1, strcat(currentPathSplitted{4}, '_', kindOfGraphics, '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
+        saveas(h1, strcat(currentPathSplitted{4}, '_', kindOfGraphics, '-', strjoin(newNames(h(:, 1) > 0), '_'), '_', date), 'fig');
     else
         ylim([0 100])
         
@@ -367,15 +367,15 @@ function [ ] = comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 
         
         if isempty(strfind(currentPath, 'Voronoi1')) == 0
             xlabel('Graphlet degree distance random voronoi (GDDRV)', 'FontWeight', 'bold');
-            saveas(h1, strcat(currentPathSplitted{4}, '_GDDRV_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
+            saveas(h1, strcat(currentPathSplitted{4}, '_GDDRV_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_'), '_', date), 'fig');
             %print(h1, strcat('GDDRV_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-djpeg', '-r300', '-painters');
         elseif isempty(strfind(currentPath, 'Voronoi5')) == 0
             xlabel('Graphlet degree distance voronoi 5 (GDDV5)', 'FontWeight', 'bold');
-            saveas(h1, strcat(currentPathSplitted{4}, '_GDDV5_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
+            saveas(h1, strcat(currentPathSplitted{4}, '_GDDV5_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_'), '_', date), 'fig');
             %print(h1, strcat('GDDV5_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-djpeg', '-r300', '-painters');
         else
             xlabel('Graphlet degree distance-hexagons (GDDH)', 'FontWeight', 'bold');
-            saveas(h1, strcat(currentPathSplitted{4}, '_GDDH_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), 'fig');
+            saveas(h1, strcat(currentPathSplitted{4}, '_GDDH_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_'), '_', date), 'fig');
             %set(findall(0,'Type','Line'), 'MarkerSize', 20)
             %print(h1, strcat('GDDH_PercentageOfHexagons', '-', strjoin(newNames(h(:, 1) > 0), '_')), '-djpeg', '-r300', '-painters');
         end
