@@ -1,10 +1,14 @@
-function [ ] = compare3D( currentPath )
+function [ ] = compare3D( currentPath, kindOfGraphics )
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
     set(0,'DefaultAxesFontName', 'Helvetica-Narrow', 'DefaultAxesFontSize', 30, 'DefaultLineMarkerSize', 18)
     clearvars -except currentPath kindOfGraphics
     unifyDistances(currentPath);
-    load(strrep(strcat(currentPath, 'allDifferences.mat'), 'AgainstHexagons', 'AgainstVoronoi1'))
+    if isequal(kindOfGraphics, 'RV_V5')
+        load(strrep(strcat(currentPath, 'allDifferences.mat'), 'AgainstVoronoi1', 'AgainstVoronoi5'))
+    else
+        load(strrep(strcat(currentPath, 'allDifferences.mat'), 'AgainstHexagons', 'AgainstVoronoi5'))
+    end
     nameFiles = namesFinal;
     percentageOfHexagons = differenceWithRegularHexagon';
     load(strcat(currentPath, 'allDifferences.mat'))
