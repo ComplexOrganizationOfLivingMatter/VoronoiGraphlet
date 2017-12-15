@@ -13,6 +13,8 @@ voronoiGraphlets/test/*
 voronoiGraphlets/data/*
 voronoiGraphlets/src/lib/export_fig-master/*
 voronoiGraphlets/src/lib/Plotly/*
+fijiPlugins
+shapeIndex
 *.fig
 *.tif
 *.nd2
