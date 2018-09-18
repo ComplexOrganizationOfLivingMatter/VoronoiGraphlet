@@ -15,11 +15,10 @@ options <- par(
   mgp      = c(7, 2.5, 0),
   cex.axis = 3.3,
   cex.lab  = 3.5,
-  pty      = "m",
   font.lab = 2
 )
 #par(options)
-x <- boxplot(list(WT = data2, "Mbs-RNAi" = data1), ylim = c(-0.0005, 0.023), ylab = "Fourfold vertices per Cell", boxwex=0.25)
+x <- boxplot(list(WT = data2, "Mbs-RNAi" = data1), names = c("WT", expression(italic("Mbs-RNAi")) ), ylim = c(-0.0005, 0.023), ylab = "Fourfold vertices per Cell", boxwex=0.25)
 stripchart(list(WT = data2, "Mbs-RNAi" = data1), vertical = TRUE,
            method = "jitter", add = TRUE, pch=16, ps= 20, col = 'blue')
 meanData <- c(mean(data2), mean(data1))
