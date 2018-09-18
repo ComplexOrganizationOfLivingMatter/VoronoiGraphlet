@@ -70,7 +70,7 @@ classdef Violin < handle
     end
 
     methods
-        function obj = Violin(data, pos, varargin)
+        function obj = Violin(data, pos, colours, varargin)
             %Violin plots a violin plot of some data at pos
             %   VIOLIN(DATA, POS) plots a violin at x-position POS for
             %   a vector of DATA points.
@@ -183,8 +183,8 @@ classdef Violin < handle
             obj.EdgeColor = args.EdgeColor;
             obj.BoxColor = args.BoxColor;
             obj.MedianColor = args.MedianColor;
-            if not(isempty(args.ViolinColor))
-                obj.ViolinColor = args.ViolinColor;
+            if not(isempty(colours))
+                obj.ViolinColor = colours;
             else
                 obj.ViolinColor = obj.ScatterPlot.CData;
             end
