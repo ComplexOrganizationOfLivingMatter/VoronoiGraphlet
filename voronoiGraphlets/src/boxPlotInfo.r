@@ -13,8 +13,8 @@ png(
 options <- par(
   mar      = c(5, 10, 1, 1),
   mgp      = c(7, 2.5, 0),
-  cex.axis = 3.3,
-  cex.lab  = 3.5,
+  cex.axis = 4,
+  cex.lab  = 4.2,
   font.lab = 2
 )
 #par(options)
@@ -45,23 +45,41 @@ data2 = c(0.016025641, 0, 0, 0.02173913, 0);
 
 png(
   "Mbs_vs_WT_T1_Transitions_18_09_2018.png",
-  width     = 3.25,
-  height    = 3.25,
+  width     = 2.5,
+  height    = 4,
   units     = "in",
   res       = 500,
   pointsize = 4
 )
-par(options)
+options <- par(
+  mar      = c(5, 10, 1, 1),
+  mgp      = c(7, 2.5, 0),
+  cex.axis = 4,
+  cex.lab  = 4.2,
+  font.lab = 2
+)
 
-boxplot(list(WT = data1, "Mbs-RNAi" = data2), ylim = c(-0.005, 0.28), ylab = 'Intercalation rate (T1s/Cell/Hour)');
+boxplot(list(WT = data1, "Mbs-RNAi" = data2), names = c("WT", expression(italic("Mbs-RNAi")) ), boxwex=0.25, ylim = c(-0.005, 0.28), ylab = 'Intercalation rate (T1s/Cell/Hour)');
 stripchart(list(WT = data1, "Mbs-RNAi" = data2), vertical = TRUE, 
            method = "jitter", add = TRUE, pch=16, col = 'blue')
+
+my.at <- round(c(data1, data2), 1)
+axis(1, at = my.at, labels = my.at)
+
+meanData <- c(mean(data1), mean(data2))
+
+segments(c(0.88, 1.88),
+         meanData,
+         c(1.12, 2.12),
+         meanData,
+         col = c('black', 'black'),
+         lty = 2);
 
 par(xpd=TRUE)
 yrange<-par("usr")[3:4]
 ypos<-yrange[2]-diff(yrange)/15
 segments(1,ypos,2,ypos)
-text(1.5,ypos+diff(yrange)/40,"**",cex=2)
+text(1.5,ypos+diff(yrange)/40,"**",cex=4)
 par(xpd=FALSE)
 
 dev.off()
