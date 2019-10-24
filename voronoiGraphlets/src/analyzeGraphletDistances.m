@@ -13,7 +13,7 @@ function [ ] = analyzeGraphletDistances(currentPath, typeOfDistance)
 
 %     %% Against Hexagons
 %     
-%     save(strcat(currentPath, 'distanceMatrix', upper(typeOfDistance) ,'.mat'), 'distanceMatrix', 'names');
+        save(strcat(currentPath, 'distanceMatrix', upper(typeOfDistance) ,'.mat'), 'distanceMatrix', 'names');
 %     
 % %     dis = distanceMatrix(22:end, 22:end);
 % %     n = names(22:end);
@@ -29,25 +29,27 @@ function [ ] = analyzeGraphletDistances(currentPath, typeOfDistance)
 % %         end
 % %     end
 %     
-%     %% Against Voronoi 1
-%     voronoiDiagram1 = cellfun(@(x) isempty(strfind(x, 'Diagrama_001')) == 0 & isempty(strfind(x, 'weight')), names);
-%     distanceMatrix = distanceMatrix(:, voronoiDiagram1);
-%     distanceMatrix = distanceMatrix(2:end, :);
-%     differenceMean = mean(distanceMatrix, 2);
-%     %names = names(voronoiDiagram1 == 0);
-%     names = names(2:end);
-%     
-%     save(strcat(currentPath, 'distanceMatrixVoronoi1', upper(typeOfDistance) ,'.mat'), 'distanceMatrix', 'names', 'differenceMean');
-    
-    %% Against Voronoi 5
-    
-    voronoiDiagram5 = cellfun(@(x) isempty(strfind(x, 'Diagrama_005')) == 0 & isempty(strfind(x, 'weight')), names);
-    distanceMatrix = distanceMatrix(:, voronoiDiagram5);
+    %% Against Voronoi 1
+    voronoiDiagram1 = cellfun(@(x) isempty(strfind(x, 'Diagrama_001')) == 0 & isempty(strfind(x, 'weight')), names);
+    distanceMatrix = distanceMatrix(:, voronoiDiagram1);
     distanceMatrix = distanceMatrix(2:end, :);
     differenceMean = mean(distanceMatrix, 2);
+    differenceSD = std(distanceMatrix, [], 2);
     %names = names(voronoiDiagram1 == 0);
     names = names(2:end);
     
-    save(strcat(currentPath, 'distanceMatrixVoronoi5', upper(typeOfDistance) ,'.mat'), 'distanceMatrix', 'names', 'differenceMean');
+    save(strcat(currentPath, 'distanceMatrixVoronoi1', upper(typeOfDistance) ,'.mat'), 'distanceMatrix', 'names', 'differenceMean', 'differenceSD');
+    
+    %% Against Voronoi 5
+    
+%     voronoiDiagram5 = cellfun(@(x) isempty(strfind(x, 'Diagrama_005')) == 0 & isempty(strfind(x, 'weight')), names);
+%     distanceMatrix = distanceMatrix(:, voronoiDiagram5);
+%     distanceMatrix = distanceMatrix(2:end, :);
+%     differenceMean = mean(distanceMatrix, 2);
+%     differenceSD = std(distanceMatrix, [], 2);
+%     %names = names(voronoiDiagram1 == 0);
+%     names = names(2:end);
+%     
+%     save(strcat(currentPath, 'distanceMatrixVoronoi5', upper(typeOfDistance) ,'.mat'), 'distanceMatrix', 'names', 'differenceMean', 'differenceSD');
 end
 

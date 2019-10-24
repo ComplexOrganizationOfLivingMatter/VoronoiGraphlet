@@ -67,11 +67,11 @@ function [  ] = pipelineGraphletsVoronoi( typeOfData )
 %         filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', i, strcat('WithGraphlet', num2str(i)));
 %     end
     %Basica
-%     filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', 16:73, 'Basica');
-%     %BasicaParcial
-%     filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', [9, 15, 16:73], 'BasicaParcial');
-%     %Total
-     filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', [50, 51, 63:65, 55, 56, 69, 70], 'Total');
+    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', 16:73, 'Basica');
+    %BasicaParcial
+    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength4\'), 'finalValidCells', [9, 15, 16:73], 'BasicaParcial');
+    %Total
+    filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', [50, 51, 63:65, 55, 56, 69, 70], 'Total');
     %TotalParcial
     filterByNonValidCells(graphletResultsDir, strcat(validCellsDir, 'maxLength5\'), 'finalValidCells', [9, 15, 23, 24, 37:39, 50:59, 63:73], 'TotalParcial');
     

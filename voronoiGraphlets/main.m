@@ -81,7 +81,11 @@ comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\compar
 %comparisons
 comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\TotalParcial\AgainstHexagons\', '' )
 comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\TotalParcial\AgainstVoronoi1\', '' )
-comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\TotalParcial\AgainstVoronoi1\', 'GDDRV_GDDRH')
+comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\TotalParcial\AgainstVoronoi1\', 'GDDRV_GDDH')
+
+comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\TotalParcial\AgainstVoronoi5\', '')
+comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\TotalParcial\AgainstVoronoi5\', 'GDDV5_GDDH')
+comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\TotalParcial\AgainstVoronoi5\', 'GDDV5_GDDRV')
 
 %comparisons
 comparePercentageOfHexagonsAgainstComparisonWithRegularHexagons( 'results\comparisons\EveryFile\Total\AgainstHexagons\', '' )
@@ -126,8 +130,8 @@ compareIndividualCells( 'results\graphletResultsIndividual\biologicalImagesAndVo
 compareIndividualCells( 'results\graphletResultsIndividual\biologicalImagesAndVoronoi\Total\' , 9, 'gdda' )
 compareIndividualCells( 'results\graphletResultsIndividual\biologicalImagesAndVoronoi\Total\' , 10, 'gdda' )
 
-%Compare 3D
-compare3D( 'results\comparisons\EveryFile\Total\AgainstHexagons\');
+%% Compare 3D
+compare3D( 'results\comparisons\EveryFile\TotalParcial\AgainstHexagons\');
 
 
 %% Info persistence homology

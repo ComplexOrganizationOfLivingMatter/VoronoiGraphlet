@@ -85,6 +85,27 @@ function [ ] = compare3D( currentPath, kindOfGraphics )
         error('Wrong percentages');
     end
 
-    plottingInfo3D(currentPath, differenceWithRegularHexagon, differenceRV, percentageOfHexagons, names )
+    h1 = figure('units','normalized','outerposition',[0 0 1 1], 'Color', [1 1 1]);
+    classes = {'BC' 'BCA' [0 0.200000000000000 0];
+    'omm' 'Eye' [1 0.400000000000000 0];
+    'cNT' 'cNT' [0.200000000000000 0.800000000000000 1];
+    'dWL' 'dWL' [0 0.600000000000000 0];
+    'dWP' 'dWP' [1 0 0];
+    'imagen' 'CVT' [0.800000000000000 0.800000000000000 0.800000000000000];
+    'half' 'CVTw1' [0.200000000000000 0.600000000000000 0.600000000000000];
+    'Case-II' 'Case II' [0 0 0.600000000000000];
+    'Case-III' 'Case III' [1 0.800000000000000 1];
+    'Case-IV' 'Case IV' [1 0.200000000000000 1];
+    'dMWP' 'dMWP' [0.800000000000000 0 0.600000000000000];
+    'Atrophy-Sim' 'Atrophy' [0.600000000000000 0 1];
+    'Control-Sim-Prol' 'Control' [0.200000000000000 0.800000000000000 1];
+    'Control-Sim-no-Prol' 'Control No Prol' [1 1 0];
+    'BNA' 'BNA' [0 0 0];
+    'half' 'CVTw2' [0.200000000000000 0.400000000000000 0.600000000000000];
+    'neo' 'Neo' [0.200000000000000 0.400000000000000 0.600000000000000];
+    'rosetta' 'Rosetta' [0.400000000000000 0 0];
+    'voronoiNoise' 'CVTn' [1 0 0.315789473684211]};
+    plottingInfo(currentPath, h1, differenceWithRegularHexagon, differenceRV, percentageOfHexagons, names);
+    
 end
 

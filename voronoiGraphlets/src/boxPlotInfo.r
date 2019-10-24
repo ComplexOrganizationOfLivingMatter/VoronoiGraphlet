@@ -13,8 +13,8 @@ png(
 options <- par(
   mar      = c(5, 10, 1, 1),
   mgp      = c(7, 2.5, 0),
-  cex.axis = 4,
-  cex.lab  = 4.2,
+  cex.axis = 4, # Size of the axis ticks
+  cex.lab  = 4.2, #Size of the axis label
   font.lab = 2
 )
 #par(options)
@@ -22,6 +22,7 @@ x <- boxplot(list(WT = data2, "Mbs-RNAi" = data1), names = c("WT", expression(it
 stripchart(list(WT = data2, "Mbs-RNAi" = data1), vertical = TRUE,
            method = "jitter", add = TRUE, pch=16, ps= 20, col = 'blue')
 meanData <- c(mean(data2), mean(data1))
+stdData <- c(sd(data2), sd(data1))
 
 segments(c(0.88, 1.88),
          meanData,
@@ -67,6 +68,7 @@ my.at <- round(c(data1, data2), 1)
 axis(1, at = my.at, labels = my.at)
 
 meanData <- c(mean(data1), mean(data2))
+stdData <- c(sd(data1), sd(data2))
 
 segments(c(0.88, 1.88),
          meanData,

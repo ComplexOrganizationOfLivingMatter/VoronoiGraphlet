@@ -14,9 +14,9 @@ figure;
 % hold on;
 % scatter(fourFoldVerticesMbs(:, 1), ones(size(groupingMbs)))
 
-notBoxPlot(fourFoldVerticesMbs, 2, 'style','sdline', 'markMedian', true)
-hold on; notBoxPlot(fourFoldVerticesWT, 1, 'style','sdline', 'markMedian', true)
-set(gca, 'xtick', 1:2, 'xticklabels', {'WT', 'Mbs-RNAi'});
+% notBoxPlot(fourFoldVerticesMbs, 2, 'style','sdline', 'markMedian', true)
+% hold on; notBoxPlot(fourFoldVerticesWT, 1, 'style','sdline', 'markMedian', true)
+% set(gca, 'xtick', 1:2, 'xticklabels', {'WT', 'Mbs-RNAi'});
 
 [~, pValue] = kstest2(fourFoldVerticesMbs, fourFoldVerticesWT);
 sigstar([1,2], pValue);
